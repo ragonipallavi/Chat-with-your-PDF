@@ -1,188 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @page {
-            size: A4;
-            margin: 20mm;
-            background-color: #ffffff;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: auto;
-        }
-        .header {
-            border-bottom: 2px solid #D97706;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        h1 { color: #1C1917; font-size: 24pt; margin-bottom: 5px; }
-        h2 { color: #D97706; font-size: 18pt; border-left: 5px solid #D97706; padding-left: 10px; margin-top: 30px; }
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        pre {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 10pt;
-        }
-        .badge {
-            display: inline-block;
-            background: #FEF3C7;
-            color: #92400E;
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-size: 9pt;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-        .feature-list li::before {
-            content: "✓ ";
-            color: #D97706;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>Folio — AI Document Reader</h1>
-        <p>A minimalist RAG (Retrieval-Augmented Generation) application to chat with your PDF documents using Groq and FAISS.</p>
-        <div>
-            <span class="badge">Flask</span>
-            <span class="badge">Llama 3.1</span>
-            <span class="badge">FAISS</span>
-            <span class="badge">Sentence-Transformers</span>
-        </div>
-    </div>
+# Folio — AI Document Reader 📄
 
-    <p>Folio is a high-performance document assistant that allows users to upload PDF files and ask questions in plain English. It uses a <strong>RAG architecture</strong> to ensure that the AI answers strictly based on the content of the uploaded document, minimizing hallucinations.</p>
+> A minimalist, high-performance RAG application to chat with your PDF documents using Groq and FAISS.
 
-    <h2>🚀 Features</h2>
-    <ul class="feature-list">
-        <li><strong>Local PDF Indexing:</strong> Extracts and chunks text directly on the server.</li>
-        <li><strong>Vector Search:</strong> Uses <code>FAISS</code> and <code>all-MiniLM-L6-v2</code> for lightning-fast semantic search.</li>
-        <li><strong>Llama 3.1 Powered:</strong> Leverages Groq's API for near-instant responses.</li>
-        <li><strong>Elegant UI:</strong> A refined, typography-focused interface with "Paper" aesthetic and dark-mode sidebar.</li>
-        <li><strong>Source Transparency:</strong> Shows the exact passages used to generate each answer.</li>
-    </ul>
+![Flask](https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+![Llama](https://img.shields.io/badge/Llama_3.1-Meta-blue?style=flat)
 
-    <h2>🛠️ Installation & Setup</h2>
-    <p>Follow these steps to run Folio locally:</p>
+Folio is a document assistant that lets you upload any PDF and ask questions in plain English. Powered by a **RAG (Retrieval-Augmented Generation)** pipeline, it answers strictly from your document's content — minimizing hallucinations and keeping responses grounded in your source material.
 
-    <h3>1. Clone the repository</h3>
-    <pre>git clone https://github.com/yourusername/folio.git
-cd folio</pre>
-
-    <h3>2. Install dependencies</h3>
-    <p>It is recommended to use a virtual environment:</p>
-    <pre>python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-pip install -r requirements.txt</pre>
-
-    <h3>3. Run the application</h3>
-    <pre>python app.py</pre>
-    <p>The app will be available at <code>http://127.0.0.1:5000</code>.</p>
-
-    <h2>📖 How to Use</h2>
-    <ol>
-        <li><strong>Get a Groq API Key:</strong> Sign up at <a href="https://console.groq.com/">Groq Cloud</a> and generate an API key.</li>
-        <li><strong>Enter Key:</strong> Paste your <code>gsk_...</code> key into the sidebar in the Folio app.</li>
-        <li><strong>Upload PDF:</strong> Drag and drop your document into the sidebar.</li>
-        <li><strong>Chat:</strong> Start asking questions!</li>
-    </ol>
-
-    <h2>🏗️ Architecture</h2>
-    <p>The project follows a standard RAG pipeline:</p>
-    <ul>
-        <li><strong>Ingestion:</strong> PDF text is extracted using <code>PyPDF2</code> and split into 500-character chunks with overlap.</li>
-        <li><strong>Embedding:</strong> Chunks are converted into 384-dimensional vectors using <code>SentenceTransformer</code>.</li>
-        <li><strong>Retrieval:</strong> When a user asks a question, the top 4 most relevant chunks are retrieved via L2 distance in <code>FAISS</code>.</li>
-        <li><strong>Generation:</strong> The context and question are sent to <code>llama-3.1-8b-instant</code> via Groq.</li>
-    </ul>
-
-    <h2>📜 License</h2>
-    <p>Distributed under the MIT License. See <code>LICENSE</code> for more information.</p>
-</body>
-</html>
-"""
-
-from weasyprint import HTML
-
-# Create the HTML file
-with open("README_preview.html", "w") as f:
-    f.write(html_content)
-
-# Convert to PDF for a nice presentation
-HTML(string=html_content).write_pdf("Folio_Project_Documentation.pdf")
-
-# Also generate the raw Markdown content for the user to copy
-markdown_content = """# Folio — Chat with your PDF 📄
-
-Folio is a minimalist **RAG (Retrieval-Augmented Generation)** application that allows you to have intelligent conversations with your PDF documents. By combining the speed of **Groq (Llama 3.1)** with the efficiency of **FAISS** vector search, Folio provides instant, context-aware answers.
+---
 
 ## ✨ Features
-- **Instant Indexing:** PDF text is processed, chunked, and vectorized in seconds.
-- **Semantic Search:** Uses `sentence-transformers` to understand the meaning of your questions, not just keywords.
-- **Groq Integration:** Blazing fast inference using the `llama-3.1-8b-instant` model.
-- **Contextual Accuracy:** The AI is strictly instructed to answer based only on the provided document.
-- **Clean UI:** A "Paper & Ink" inspired interface designed for readability.
-- **Source Highlighting:** View the specific document passages used to generate an answer.
 
-## 🛠️ Technical Stack
-- **Backend:** Flask (Python)
-- **Vector DB:** FAISS (Facebook AI Similarity Search)
-- **Embeddings:** `all-MiniLM-L6-v2` (Sentence-Transformers)
-- **LLM:** Llama 3.1 8B via Groq Cloud API
-- **Frontend:** HTML5, CSS3 (Modern Vanilla JS)
+- **Local PDF Indexing** — Text is extracted and chunked directly on your server; your full document never leaves your machine.
+- **Semantic Vector Search** — Uses `FAISS` + `all-MiniLM-L6-v2` for fast, meaning-aware retrieval (not just keyword matching).
+- **Blazing Fast Inference** — Powered by `llama-3.1-8b-instant` via the Groq Cloud API for near-instant responses.
+- **Source Transparency** — Every answer includes the exact document passages used to generate it.
+- **Privacy First** — Only the relevant text snippets needed to answer your question are sent to the Groq API. Everything else stays local.
+- **Elegant UI** — A "Paper & Ink" aesthetic with a clean reading experience and dark-mode sidebar.
+
+---
+
+## 🏗️ Architecture
+
+Folio follows a standard RAG pipeline:
+
+```
+PDF Upload → Text Extraction → Chunking → Embedding → FAISS Index
+                                                             ↓
+User Question → Embed Question → Vector Search → Top-4 Chunks
+                                                             ↓
+                                          Groq (Llama 3.1) → Answer
+```
+
+| Stage | Detail |
+|---|---|
+| **Ingestion** | `PyPDF2` extracts text; split into 500-character chunks with overlap |
+| **Embedding** | `SentenceTransformer` (`all-MiniLM-L6-v2`) converts chunks to 384-dimensional vectors |
+| **Retrieval** | Top 4 most relevant chunks fetched via L2 distance in `FAISS` |
+| **Generation** | Context + question sent to `llama-3.1-8b-instant` via Groq API |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Backend | Flask (Python) |
+| Vector DB | FAISS (Facebook AI Similarity Search) |
+| Embeddings | `all-MiniLM-L6-v2` (Sentence-Transformers) |
+| LLM | Llama 3.1 8B via Groq Cloud API |
+| Frontend | HTML5, CSS3, Vanilla JS |
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Python 3.8+
-- A [Groq API Key](https://console.groq.com/)
+- A [Groq API Key](https://console.groq.com/) (free tier available)
 
 ### Installation
-1. **Clone the repo**
-   ```bash
-   git clone [https://github.com/yourusername/folio.git](https://github.com/yourusername/folio.git)
-   cd folio
-   ```
 
-2. **Install Requirements**
-   ```bash
-   pip install -r requirements.txt
-   ```
+**1. Clone the repository**
 
-3. **Run the App**
-   ```bash
-   python app.py
-   ```
-   Open `http://127.0.0.1:5000` in your browser.
+```bash
+git clone https://github.com/yourusername/folio.git
+cd folio
+```
 
-## 📂 Project Structure
-- `app.py`: Flask server, PDF processing logic, and RAG implementation.
-- `index.html`: Single-page frontend with embedded CSS and JS.
-- `requirements.txt`: List of necessary Python libraries.
+**2. Create a virtual environment and install dependencies**
 
-## 🛡️ Privacy
-Folio processes your documents locally (for embedding and indexing). Only the relevant text snippets needed to answer your specific question are sent to the Groq API. Document data is stored in-memory and cleared when the session ends.
+```bash
+python -m venv venv
+source venv/bin/activate        # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+**3. Run the application**
+
+```bash
+python app.py
+```
+
+Open your browser and navigate to `http://127.0.0.1:5000`.
 
 ---
-Built with ❤️ for better document reading.
-"""
 
+## 📖 How to Use
 
+1. **Get a Groq API Key** — Sign up at [Groq Cloud](https://console.groq.com/) and generate a `gsk_...` key.
+2. **Enter your key** — Paste it into the sidebar in the Folio app.
+3. **Upload a PDF** — Drag and drop your document into the sidebar, or click to browse.
+4. **Chat** — Ask questions in plain English. Folio retrieves the most relevant passages and generates a grounded answer.
+5. **Inspect sources** — Expand the "Sources" panel below any answer to see the exact document excerpts used.
+
+---
+
+## 📂 Project Structure
+
+```
+folio/
+├── app.py               # Flask server, PDF processing logic, RAG pipeline
+├── index.html           # Single-page frontend (CSS + JS embedded)
+├── requirements.txt     # Python dependencies
+└── LICENSE
+```
+
+---
+
+## 🛡️ Privacy & Data Handling
+
+Folio is designed with privacy in mind:
+
+- PDF text is **extracted and indexed locally** on your server.
+- Only the **top retrieved snippets** (not your full document) are sent to the Groq API per query.
+- All document data is stored **in-memory** and cleared when the session ends — nothing is persisted to disk.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to open an issue or submit a pull request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+*Built with ❤️ for better document reading.*
