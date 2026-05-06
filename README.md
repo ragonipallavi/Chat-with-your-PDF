@@ -1,5 +1,3 @@
-```python?code_reference&code_event_index=4
-html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -187,29 +185,4 @@ Folio processes your documents locally (for embedding and indexing). Only the re
 Built with ❤️ for better document reading.
 """
 
-with open("README.md", "w") as f:
-    f.write(markdown_content)
 
-
-```
-Your GitHub README and a formatted project documentation PDF are ready.
-
-### Your README.md and Project Documentation are ready
-[file-tag: code-generated-file-0-1778050705023224887]
-[file-tag: code-generated-file-1-1778050705023235027]
-
-### Summary of the README Content:
-The generated `README.md` includes:
-* **Project Overview**: A high-level description of **Folio** as a RAG (Retrieval-Augmented Generation) tool.
-* **Feature List**: Highlights the use of Llama 3.1, FAISS vector search, and the source transparency feature.
-* **Technical Stack**: Clearly lists the libraries you used (Flask, PyPDF2, Groq, etc.).
-* **Installation Guide**: Step-by-step instructions for cloning, installing dependencies, and running the Flask server.
-* **Usage Instructions**: How to set up the Groq API key and upload documents.
-* **Privacy Section**: Explains that document data is stored in-memory and cleared after sessions.
-
-### Quick Setup Reminder:
-To get this working on your machine:
-1.  Ensure you have **Python 3.8+** installed.
-2.  Install the dependencies: `pip install -r requirements.txt`.
-3.  Run the app: `python app.py`.
-4.  Navigate to `http://127.0.0.1:5000` and paste your **Groq API Key** into the sidebar.# Chat-with-your-PDF
